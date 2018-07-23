@@ -6,6 +6,8 @@ import android.arch.persistence.room.TypeConverters;
 
 import com.galaxydl.myactis.data.converter.ListConverter;
 
+import org.jetbrains.annotations.Contract;
+
 import java.util.List;
 
 @Entity(tableName = "activities_list")
@@ -16,11 +18,14 @@ public final class ActivitiesList {
 
     private List<String> activities;
 
+    private int state;
+
     public ActivitiesList(String id, List<String> activities) {
         this.id = id;
         this.activities = activities;
     }
 
+    @Contract(pure = true)
     public String getId() {
         return id;
     }
@@ -29,11 +34,21 @@ public final class ActivitiesList {
         this.id = id;
     }
 
+    @Contract(pure = true)
     public List<String> getActivities() {
         return activities;
     }
 
     public void setActivities(List<String> activities) {
         this.activities = activities;
+    }
+
+    @Contract(pure = true)
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }
