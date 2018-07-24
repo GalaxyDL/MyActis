@@ -27,4 +27,7 @@ public interface ActivitiesListDao {
 
     @Delete
     void deleteActivitiesList(ActivitiesList activitiesList);
+
+    @Query("delete from activities_list where state = " + ActivitiesList.STATE_COMPLETED)
+    void deleteAllCompletedActivitiesLists();
 }

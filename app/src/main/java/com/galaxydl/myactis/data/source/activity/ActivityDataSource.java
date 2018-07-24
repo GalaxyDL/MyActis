@@ -1,4 +1,4 @@
-package com.galaxydl.myactis.data.source;
+package com.galaxydl.myactis.data.source.activity;
 
 import com.galaxydl.myactis.data.Activity;
 

@@ -1,9 +1,10 @@
-package com.galaxydl.myactis.data.source;
+package com.galaxydl.myactis.data.source.activity;
 
 import android.content.Context;
 
 import com.galaxydl.myactis.data.Activity;
 import com.galaxydl.myactis.data.dao.ActivityDao;
+import com.galaxydl.myactis.data.source.ActivityDataBase;
 import com.galaxydl.myactis.util.ExecutorHolder;
 
 import org.jetbrains.annotations.NotNull;
