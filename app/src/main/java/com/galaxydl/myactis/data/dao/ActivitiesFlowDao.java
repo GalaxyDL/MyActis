@@ -27,4 +27,7 @@ public interface ActivitiesFlowDao {
 
     @Delete
     void deleteActivityFlow(ActivitiesFlow activitiesFlow);
+
+    @Query("delete from activities_flow where state = " + ActivitiesFlow.STATE_COMPLETED)
+    void deleteAllCompletedActivitiesFlows();
 }
