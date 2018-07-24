@@ -7,6 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 import org.jetbrains.annotations.Contract;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity(tableName = "activities",
@@ -76,5 +77,32 @@ public final class Activity implements CacheAble{
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Activity activity = (Activity) o;
+        return state == activity.state &&
+                Objects.equals(id, activity.id) &&
+                Objects.equals(description, activity.description) &&
+                Objects.equals(precursor, activity.precursor);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, description, precursor, state);
+    }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id='" + id + '\'' +
+                ", description='" + description + '\'' +
+                ", precursor='" + precursor + '\'' +
+                ", state=" + state +
+                '}';
     }
 }

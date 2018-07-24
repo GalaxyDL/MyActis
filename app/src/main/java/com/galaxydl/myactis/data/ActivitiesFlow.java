@@ -8,6 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity(tableName = "activities_flow")
@@ -74,5 +75,31 @@ public final class ActivitiesFlow implements CacheAble{
     @Contract(pure = true)
     public Map<String, Activity> getFlow() {
         return flow;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ActivitiesFlow that = (ActivitiesFlow) o;
+        return state == that.state &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(rootId, that.rootId);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, rootId, state);
+    }
+
+    @Override
+    public String toString() {
+        return "ActivitiesFlow{" +
+                "id='" + id + '\'' +
+                ", rootId='" + rootId + '\'' +
+                ", state=" + state +
+                ", flow=" + flow +
+                '}';
     }
 }

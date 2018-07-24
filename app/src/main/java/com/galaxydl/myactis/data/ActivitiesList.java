@@ -10,6 +10,7 @@ import com.galaxydl.myactis.data.converter.ListConverter;
 import org.jetbrains.annotations.Contract;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity(tableName = "activities_list")
@@ -63,5 +64,30 @@ public final class ActivitiesList implements CacheAble{
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ActivitiesList that = (ActivitiesList) o;
+        return state == that.state &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(activities, that.activities);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, activities, state);
+    }
+
+    @Override
+    public String toString() {
+        return "ActivitiesList{" +
+                "id='" + id + '\'' +
+                ", activities=" + activities +
+                ", state=" + state +
+                '}';
     }
 }

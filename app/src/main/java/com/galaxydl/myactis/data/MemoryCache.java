@@ -30,4 +30,9 @@ public class MemoryCache<T extends CacheAble> {
     public List<T> getAll() {
         return new ArrayList<>(mCache.values());
     }
+
+    public void delete(T value) {
+        mCache.remove(value.getId());
+    }
+
 }
