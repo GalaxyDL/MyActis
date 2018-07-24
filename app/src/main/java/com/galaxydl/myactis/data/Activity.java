@@ -2,15 +2,26 @@ package com.galaxydl.myactis.data;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import org.jetbrains.annotations.Contract;
+
+import java.util.UUID;
 
 @Entity(tableName = "activities",
         foreignKeys = @ForeignKey(entity = Activity.class,
                 parentColumns = "id",
                 childColumns = "precursor"))
-public final class Activity {
+public final class Activity implements CacheAble{
+
+    @Ignore
+    public static final int STATE_UNCOMPLETED = 1;
+    @Ignore
+    public static final int STATE_COMPLETED = 2;
+    @Ignore
+    public static final int STATE_SKIPPED = 3;
+
     @PrimaryKey
     private String id;
 
@@ -25,6 +36,10 @@ public final class Activity {
         this.description = description;
         this.precursor = precursor;
         this.state = state;
+    }
+
+    public Activity(String description, String precursor) {
+        this(UUID.randomUUID().toString(), description, precursor, STATE_UNCOMPLETED);
     }
 
     @Contract(pure = true)
