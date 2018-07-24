@@ -27,4 +27,7 @@ public interface ActivityDao {
 
     @Delete
     void deleteActivity(Activity activity);
+
+    @Query("delete from activities where state = " + Activity.STATE_COMPLETED)
+    void deleteAllCompletedActivities();
 }
