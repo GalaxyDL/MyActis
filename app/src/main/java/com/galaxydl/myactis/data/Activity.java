@@ -26,21 +26,24 @@ public final class Activity implements CacheAble{
     @PrimaryKey
     private String id;
 
+    private String title;
+
     private String description;
 
     private String precursor;
 
     private int state;
 
-    public Activity(String id, String description, String precursor, int state) {
+    public Activity(String id, String title, String description, String precursor, int state) {
         this.id = id;
+        this.title = title;
         this.description = description;
         this.precursor = precursor;
         this.state = state;
     }
 
-    public Activity(String description, String precursor) {
-        this(UUID.randomUUID().toString(), description, precursor, STATE_UNCOMPLETED);
+    public Activity(String title, String description, String precursor) {
+        this(UUID.randomUUID().toString(), title, description, precursor, STATE_UNCOMPLETED);
     }
 
     @Contract(pure = true)
@@ -50,6 +53,15 @@ public final class Activity implements CacheAble{
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Contract(pure = true)
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Contract(pure = true)
@@ -86,6 +98,7 @@ public final class Activity implements CacheAble{
         Activity activity = (Activity) o;
         return state == activity.state &&
                 Objects.equals(id, activity.id) &&
+                Objects.equals(title, activity.title) &&
                 Objects.equals(description, activity.description) &&
                 Objects.equals(precursor, activity.precursor);
     }
@@ -93,13 +106,14 @@ public final class Activity implements CacheAble{
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, description, precursor, state);
+        return Objects.hash(id, title, description, precursor, state);
     }
 
     @Override
     public String toString() {
         return "Activity{" +
                 "id='" + id + '\'' +
+                ", title=" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", precursor='" + precursor + '\'' +
                 ", state=" + state +

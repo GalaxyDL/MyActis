@@ -1,16 +1,18 @@
 package com.galaxydl.myactis.actis;
 
-import android.arch.lifecycle.ViewModelProviders;
+import android.arch.lifecycle.Observer;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.FloatingActionButton;
+import android.view.View;
 
+import com.galaxydl.myactis.BaseActivity;
 import com.galaxydl.myactis.R;
-import com.galaxydl.myactis.ViewModelFactory;
+import com.galaxydl.myactis.addActivity.AddActiActivity;
 import com.galaxydl.myactis.util.ActivityUtils;
 
-public class ActisActivity extends AppCompatActivity {
+public class ActisActivity extends BaseActivity {
 
     private ActivitiesViewModel mViewModel;
 
@@ -19,16 +21,18 @@ public class ActisActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actis);
 
+        mViewModel.getAddActivityCommand().observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(@Nullable Void aVoid) {
+                addActivity();
+            }
+        });
+
         setupViewFragment();
 
-        mViewModel = obtainViewModel(this);
-    }
+        setupFAB();
 
-    public static ActivitiesViewModel obtainViewModel(FragmentActivity activity) {
-        return ViewModelProviders.of(
-                activity,
-                ViewModelFactory.getInstance(activity.getApplication())
-        ).get(ActivitiesViewModel.class);
+        mViewModel = obtainViewModel(this, ActivitiesViewModel.class);
     }
 
     private void setupViewFragment() {
@@ -40,6 +44,21 @@ public class ActisActivity extends AppCompatActivity {
             ActivityUtils.replaceFragmentInActivity(
                     getSupportFragmentManager(), fragment, R.id.content_frame);
         }
+    }
+
+    private void setupFAB() {
+        FloatingActionButton actionButton = findViewById(R.id.fab_add_activity);
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mViewModel.addActivity();
+            }
+        });
+    }
+
+    private void addActivity() {
+        Intent intent = new Intent(this, AddActiActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.galaxydl.myactis.ViewModelFactory;
 import com.galaxydl.myactis.data.Activity;
 import com.galaxydl.myactis.databinding.ActivitiesFragBinding;
 
@@ -28,7 +27,8 @@ public class ActivitiesFragment extends Fragment {
 
     private ActivitiesAdapter mAdapter;
 
-    public static ActivitiesFragment newInstance() {
+    @NonNull
+    static ActivitiesFragment newInstance() {
         return new ActivitiesFragment();
     }
 
@@ -39,10 +39,7 @@ public class ActivitiesFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         mBinding = ActivitiesFragBinding.inflate(inflater, container, false);
-        mViewModel = ViewModelProviders.of(
-                this,
-                ViewModelFactory.getInstance(getActivity().getApplication())
-        ).get(ActivitiesViewModel.class);
+        mViewModel = ActisActivity.obtainViewModel(getActivity(), ActivitiesViewModel.class);
         mBinding.setViewModel(mViewModel);
 
         setupRecyclerView();

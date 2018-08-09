@@ -45,6 +45,10 @@ public class ActivitiesViewModel
         mActivityRepository.listActivities(this);
     }
 
+    public void addActivity() {
+        mAddActivityCommand.call();
+    }
+
     @Override
     public void onSuccess(List<Activity> activities) {
         if (activities.isEmpty()) {
